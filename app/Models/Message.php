@@ -14,4 +14,9 @@ class Message extends Model
         'user_id',
         'content',
     ];
+
+    public function conversation()
+{
+    return $this->belongsTo(Conversation::class);
+}
 }

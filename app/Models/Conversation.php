@@ -13,4 +13,19 @@ class Conversation extends Model
         'user_1',
         'user_2'
     ];
+
+    public function user_1()
+    {
+        return $this->hasOne(User::class, 'id', 'user_1');
+    }
+
+    public function user_2()
+    {
+        return $this->hasOne(User::class, 'id', 'user_2');
+    }
+
+    public function messages()
+{
+    return $this->hasMany(Message::class);
+}
 }
