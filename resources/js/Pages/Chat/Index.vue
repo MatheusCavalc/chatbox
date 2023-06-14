@@ -20,19 +20,20 @@ const chatId = (chatId) => {
 const userInfos = (infosUser) => {
     infosuser.value = infosUser
 }
-
-//console.log(page.props.auth.user)
 </script>
 
 <template>
-    <div class="grid grid-cols-4 gap-4">
+    <div class="lg:grid lg:grid-cols-4 lg:gap-2 bg-gray-50">
 
         <div>
-            <ChatCard :chats="props.chats" @send-chat-id="chatId" @send-messages="addMessages" @send-user-infos="userInfos"/>
+            <ChatCard :chats="props.chats" @send-chat-id="chatId" @send-messages="addMessages"
+                @send-user-infos="userInfos" />
         </div>
 
         <div class="col-span-3">
-            <ChatField :chatId="idchat" :messages="messagesChat" :userInfos="infosuser"/>
+            <div class="mr-2 bg-white">
+                <ChatField :chatId="idchat" :messages="messagesChat" :userInfos="infosuser" />
+            </div>
         </div>
     </div>
 </template>

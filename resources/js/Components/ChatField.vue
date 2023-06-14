@@ -1,11 +1,13 @@
 <script setup>
 import { usePage } from '@inertiajs/vue3';
-import axios from 'axios';
 import { computed } from 'vue';
 import { ref } from 'vue';
+import axios from 'axios';
 
 const props = defineProps(['messages', 'chatId', 'userInfos'])
 
+const page = usePage()
+const user = computed(() => page.props.auth.user)
 const message = ref('')
 
 function sendMessage() {
@@ -18,12 +20,6 @@ function sendMessage() {
         console.log(error)
     });
 }
-
-console.log(props.messages)
-
-const page = usePage()
-
-const user = computed(() => page.props.auth.user)
 </script>
 
 <template>
@@ -81,7 +77,7 @@ const user = computed(() => page.props.auth.user)
             </div>
 
 
-            <div id="messages"
+            <div id="messages overflow-y-scroll"
                 class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
                 <div v-for="message in messages.data" :key="message.id" class="chat-message">
                     <div v-if="message.user_id == user.id" class="flex items-end justify-end">
@@ -122,7 +118,7 @@ const user = computed(() => page.props.auth.user)
 
                     <form @submit.prevent="sendMessage" class="w-full">
                         <input v-model="message" type="text" placeholder="Write your message!"
-                            class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-md py-3">
+                            class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3">
 
                         <div class="absolute right-0 items-center inset-y-0 hidden sm:flex">
                             <!--
@@ -157,7 +153,7 @@ const user = computed(() => page.props.auth.user)
                     </button>
                     -->
                             <button type="submit"
-                                class="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none">
+                                class="inline-flex items-center justify-center rounded-r-full px-4 py-3 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none">
                                 <span class="font-bold">Send</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                     class="h-6 w-6 ml-2 transform rotate-90">

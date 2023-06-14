@@ -1,14 +1,16 @@
 <script setup>
+import AuthUserOptions from '@/Components/AuthUserOptions.vue'
+import ChatBar from '@/Components/ChatBar.vue'
 import { usePage } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
-import ChatBar from '@/Components/ChatBar.vue'
-import AuthUserOptions from '@/Components/AuthUserOptions.vue'
 import axios from 'axios';
 
 const props = defineProps(['chats'])
 const emit = defineEmits(['sendMessages', 'sendChatId', 'sendUserInfos'])
 
 const showBar = ref(false)
+const page = usePage()
+const user = computed(() => page.props.auth.user)
 
 const searchBar = () => {
     showBar.value = !showBar.value
@@ -18,7 +20,6 @@ const messages = (chatId, user) => {
     axios.post('/messages', {
         chatId: chatId,
     }).then((response) => {
-        console.log(response)
         emit('sendMessages', response)
         emit('sendChatId', chatId)
         emit('sendUserInfos', user)
@@ -26,9 +27,6 @@ const messages = (chatId, user) => {
         console.log(error)
     });
 }
-
-const page = usePage()
-const user = computed(() => page.props.auth.user)
 </script>
 
 <template>
